@@ -20,7 +20,7 @@ Route::get('/', function()
 
 Route::get('admin/home', function()
 {
-	return View::make('adminhome');
+	return View::make('admin.home');
 });
 
 Route::get('test', function()
@@ -30,10 +30,11 @@ Route::get('test', function()
 
 Route::get('admin', function()
 {
-	return View::make('admlogin');
+	return View::make('admin.login');
 });
 
 Route::post('login', 'UserController@login');
+Route::get('logout', 'UserController@logout');
 
 
 /**
