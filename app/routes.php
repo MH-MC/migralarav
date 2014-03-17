@@ -25,7 +25,7 @@ Route::get('admin/home', function()
 
 Route::get('test', function()
 { 
-	echo Hash::make('mundohablado123');
+	echo Hash::make('123456');
 });
 
 Route::get('admin', function()
@@ -40,5 +40,7 @@ Route::get('logout', 'UserController@logout');
 /**
  * RESTFUL RESOURCE CONTROLLERS
  */
-
-Route::resource('user', 'UserController');
+Route::group(array('prefix' => 'admin'), function()
+{
+	Route::resource('user', 'UserController');
+});

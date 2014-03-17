@@ -9,7 +9,8 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+		$users = User::whereRoleId(3)->paginate(5);
+		return View::make('admin.users')->with('users', $users);
 	}
 
 	/**
@@ -40,7 +41,11 @@ class UserController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$user = User::whereId($id)->with('role')->first();
+
+		if(!$user) return Redirect::to('admin/user');
+		
+		return View::make('admin.users_show')->with('user', $user);
 	}
 
 	/**
@@ -51,7 +56,11 @@ class UserController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = User::whereId($id)->with('role')->first();
+
+		if(!$user) return Redirect::to('admin/user');
+		
+		return View::make('admin.users_edit')->with('user', $user);
 	}
 
 	/**
@@ -62,7 +71,9 @@ class UserController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$input = Input::all();
+
+		
 	}
 
 	/**
