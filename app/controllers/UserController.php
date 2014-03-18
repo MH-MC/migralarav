@@ -133,7 +133,9 @@ class UserController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// TODO: Borrar relaciones si existen
+		$user = User::find($id);
+		$user->delete();
 	}
 
 
