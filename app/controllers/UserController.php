@@ -20,7 +20,7 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.users_create');
 	}
 
 	/**
@@ -30,7 +30,32 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input              = Input::all();
+		$passwd             = substr(md5(rand()),0,8);
+		$input['password']  = $passwd;
+		$input['passwordv'] = $input['password'];
+		$validator          = Validator::make($input, Rules::$createUserRules);
+
+		if($validator->fails()) return Redirect::to('admin/user/create')->with('message', 'Error en el formulario')->withInput();
+		else
+		{
+			echo "dhjaskhd";
+			$user            = new User();
+			$user->role_id   = 3;
+			$user->username  = $input['username'];
+			$user->password  = Hash::make($input['password']);
+			$user->firstname = $input['firstname'];
+			$user->lastname  = $input['lastname'];
+			$user->email     = $input['email'];
+			$user->phone     = $input['phone'];
+			$user->cellphone = $input['cellphone'];
+			$user->sex       = $input['sex'];
+			$user->save();
+
+			return Redirect::to('admin/user/'.$user->id)->with('message', 'Usuario creado exitosamente.');
+
+			// TODO: Se manda el correo al usuario creado con su clave temporal.
+		}
 	}
 
 	/**
@@ -73,7 +98,31 @@ class UserController extends BaseController {
 	{
 		$input = Input::all();
 
-		
+		$rules = array(
+			'firstname' => 'required|min:2|max:50',
+			'lastname'  => 'required|min:2|max:50',
+			'email'     => 'required|min:5|max:100|unique:users,email,'.$id,
+			'phone'     => 'min:6|max:45|regex:/^\+?[0-9-()]+$/',
+			'cellphone' => 'min:6|max:45|regex:/^\+?[0-9-()]+$/'
+		);
+
+		$validator = Validator::make($input, $rules);
+
+		if($validator->fails()) return Redirect::to('admin/user/'.$id.'/edit')->with('message', 'Error en el formulario');
+		else
+		{
+			$user = User::find($id);
+			$user->firstname = $input['firstname'];
+			$user->lastname  = $input['lastname'];
+			$user->email     = $input['email'];
+			$user->phone     = $input['phone'];
+			$user->cellphone = $input['cellphone'];
+			$user->sex       = $input['radioSex'];
+			$user->touch();
+			$user->save();
+
+			return Redirect::to('admin/user/'.$id.'/edit')->with('message', 'Ha sido modificado el registro exitosamente');
+		}
 	}
 
 	/**
@@ -99,7 +148,7 @@ class UserController extends BaseController {
 
 		$validator = Validator::make($input, Rules::$loginRules);
 		
-		if($validator->fails()) echo "OH SHIT";
+		if($validator->fails()) return Redirect::to('admin')->with('message', 'Fallo en inicio de sesion');
 		else
 		{
 			$userdata = array('username' => $input['username'], 'password' => $input['password']);

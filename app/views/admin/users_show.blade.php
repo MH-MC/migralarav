@@ -3,8 +3,9 @@
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<h1 class="page-header">{{ $user->lastname." ".$user->firstname }}</h1>
-
-
+	@if (Session::has('message'))
+    	<p class="form-signin-heading">{{ Session::get('message') }}</p>
+    @endif
 	<form class="form-horizontal" role="form">
 		<div class="form-group">
 			<label class="col-sm-1 control-label">Categoría </label>

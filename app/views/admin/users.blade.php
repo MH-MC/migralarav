@@ -5,7 +5,7 @@
 	<h1 class="page-header">Usuarios Miembros</h1>
 
 	<div class="col-lg-2">
-		<a href="{{url('admin/create')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Usuario</a>
+		<a href="{{url('admin/user/create')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Usuario</a>
 	</div>
 	
 	<div class="col-lg-2">
