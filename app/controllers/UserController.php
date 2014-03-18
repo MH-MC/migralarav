@@ -123,6 +123,7 @@ class UserController extends BaseController {
 
 			return Redirect::to('admin/user/'.$id.'/edit')->with('message', 'Ha sido modificado el registro exitosamente');
 		}
+		
 	}
 
 	/**
