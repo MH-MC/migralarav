@@ -9,7 +9,7 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::whereRoleId(3)->paginate(5);
+		$users = User::whereRoleId(3)->paginate(10);
 		return View::make('admin.users')->with('users', $users);
 	}
 
@@ -39,7 +39,6 @@ class UserController extends BaseController {
 		if($validator->fails()) return Redirect::to('admin/user/create')->with('message', 'Error en el formulario')->withInput();
 		else
 		{
-			echo "dhjaskhd";
 			$user            = new User();
 			$user->role_id   = 3;
 			$user->username  = $input['username'];
