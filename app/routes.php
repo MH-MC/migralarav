@@ -40,7 +40,21 @@ Route::get('logout', 'UserController@logout');
 /**
  * RESTFUL RESOURCE CONTROLLERS
  */
+
+// TODO: Try to put public and admin (or the common between them) into a group
+
+/**
+ * ADMIN
+ */
 Route::group(array('prefix' => 'admin'), function()
+{
+	Route::resource('user', 'UserController');
+});
+
+/**
+ * PUBLIC
+ */
+Route::group(array('prefix' => 'newmh'), function()
 {
 	Route::resource('user', 'UserController');
 });

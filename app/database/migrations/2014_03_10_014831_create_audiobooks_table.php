@@ -23,7 +23,6 @@ class CreateAudiobooksTable extends Migration {
 			$table->integer('length')->unsigned()->nullable();
 			$table->decimal('price', 4, 2)->nullable();
 			$table->integer('credits')->nullable();
-			$table->string('bank', 100)->nullable();
 			$table->text('review')->nullable();
 			$table->text('description')->nullable();
 			$table->text('producer_description')->nullable();
