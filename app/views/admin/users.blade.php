@@ -32,16 +32,19 @@
 			
 			@foreach($users as $user)
 				<tr>
-					<td><a href="{{url('admin/user/'.$user->id)}}">{{ $user->username }}</a></td>
+					<?php $idEncoded = Utils::encode_id($user->id, array($user->username, $user->email)); ?>
+					<td><a href="{{url('admin/user/'.$idEncoded)}}">{{ $user->username }}</a></td>
 					<td>{{ $user->lastname }}</td>
 					<td>{{ $user->firstname }}</td>
 					<td>{{ $user->email }}</td>
 					<td>{{ $user->phone }}</td>
 					<td>{{ $user->cellphone }}</td>
 					<td>
-						<a href="#"><span class="glyphicon glyphicon-cog" title="Editar Usuario"></span></a>&nbsp;
-						<a href="#"><span class="glyphicon glyphicon-trash" title="Eliminar Usuario"></span></a>&nbsp;
-						<a href="#"><span class="glyphicon glyphicon-arrow-down" title="Dar de Baja"></span></a>&nbsp;
+						{{ Form::open(array('url' => 'admin/user/'.$idEncoded, 'method' => 'delete')) }}
+							<a href="{{url('admin/user/'.$idEncoded.'/edit')}}"><span class="glyphicon glyphicon-cog" title="Editar Usuario"></span></a>&nbsp;
+							<a href="javascript:void()" onclick='if(confirm("¿Está seguro que desea eliminar este usuario?")) this.parentNode.submit(); return false;'><span class="glyphicon glyphicon-trash" title="Eliminar Usuario"></span></a>&nbsp;
+							<a href="#"><span class="glyphicon glyphicon-arrow-down" title="Dar de Baja"></span></a>&nbsp;
+						{{ Form::close() }}
 					</td>
 				</tr>
 			@endforeach

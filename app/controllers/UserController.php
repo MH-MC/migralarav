@@ -65,6 +65,7 @@ class UserController extends BaseController {
 	 */
 	public function show($id)
 	{
+		$id = Utils::decode_id($id);
 		$user = User::whereId($id)->with('role')->first();
 
 		if(!$user) return Redirect::to('admin/user');
@@ -80,6 +81,7 @@ class UserController extends BaseController {
 	 */
 	public function edit($id)
 	{
+		$id = Utils::decode_id($id);
 		$user = User::whereId($id)->with('role')->first();
 
 		if(!$user) return Redirect::to('admin/user');
@@ -110,6 +112,7 @@ class UserController extends BaseController {
 		if($validator->fails()) return Redirect::to('admin/user/'.$id.'/edit')->with('message', 'Error en el formulario');
 		else
 		{
+			$id = Utils::decode_id($id);
 			$user = User::find($id);
 			$user->firstname = $input['firstname'];
 			$user->lastname  = $input['lastname'];
@@ -133,9 +136,12 @@ class UserController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+		$id = Utils::decode_id($id);
 		// TODO: Borrar relaciones si existen
 		$user = User::find($id);
 		$user->delete();
+
+		return Redirect::to('admin/user');
 	}
 
 

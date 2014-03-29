@@ -25,7 +25,8 @@ Route::get('admin/home', function()
 
 Route::get('test', function()
 { 
-	echo Hash::make('123456');
+	echo Utils::encode_id(4354365784369, array('darwing', 'darwing@hotmail.com')).'<br>';
+	echo Utils::decode_id('ZGYzMWI5MTZlNzJjMDlmMzA2YzkwZjgzNzc0ZDY2ZWY0MzU0MzY1Nzg0MzY5MjBiNmZhZjU3YzY1ZGRhMGRkNTk0MTgzOWFlNjFmMDY=');
 });
 
 Route::get('admin', function()
@@ -50,6 +51,7 @@ Route::group(array('prefix' => 'admin'), function()
 {
 	Route::resource('user', 'UserController');
 });
+
 
 /**
  * PUBLIC
