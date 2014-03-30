@@ -9,7 +9,15 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::whereRoleId(3)->paginate(10);
+		/*if (Request::is('admin/*'))
+		{
+			echo "estoy en admin";
+		}
+		else if(Request::is('newmh/*'))
+		{
+			echo "estoy en public";
+		}else echo "404";*/
+		$users = User::whereRoleId(3)->paginate(15);
 		return View::make('admin.users')->with('users', $users);
 	}
 

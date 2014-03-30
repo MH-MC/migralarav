@@ -31,6 +31,7 @@ Route::get('test', function()
 
 Route::get('admin', function()
 {
+	//if()
 	return View::make('admin.login');
 });
 
@@ -58,5 +59,8 @@ Route::group(array('prefix' => 'admin'), function()
  */
 Route::group(array('prefix' => 'newmh'), function()
 {
-	Route::resource('user', 'UserController');
+	// users in public app only are nor allowed to destroy themselves and see the other users
+	Route::resource('user', 'UserController', array('except' => array('index', 'destroy')));
 });
+
+
