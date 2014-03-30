@@ -1,6 +1,6 @@
 <?php
 
-class AffiliateController extends \BaseController {
+class AffiliateController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,10 @@ class AffiliateController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$role       = Role::whereName('afiliado')->first();
+		$affiliates = User::whereRoleId($role->id)->with('affiliate')->paginate(15);
+		
+		return View::make('admin.affiliate.index')->with('users', $affiliates);
 	}
 
 	/**
@@ -19,7 +22,7 @@ class AffiliateController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.affiliate.create');
 	}
 
 	/**

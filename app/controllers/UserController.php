@@ -17,8 +17,11 @@ class UserController extends BaseController {
 		{
 			echo "estoy en public";
 		}else echo "404";*/
-		$users = User::whereRoleId(3)->paginate(15);
-		return View::make('admin.users')->with('users', $users);
+
+		$role  = Role::whereName('miembro')->first();
+		$users = User::whereRoleId($role->id)->paginate(15);
+
+		return View::make('admin.user.index')->with('users', $users);
 	}
 
 	/**
@@ -28,7 +31,7 @@ class UserController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin.users_create');
+		return View::make('admin.user.create');
 	}
 
 	/**
@@ -78,7 +81,7 @@ class UserController extends BaseController {
 
 		if(!$user) return Redirect::to('admin/user');
 		
-		return View::make('admin.users_show')->with('user', $user);
+		return View::make('admin.user.show')->with('user', $user);
 	}
 
 	/**
@@ -94,7 +97,7 @@ class UserController extends BaseController {
 
 		if(!$user) return Redirect::to('admin/user');
 		
-		return View::make('admin.users_edit')->with('user', $user);
+		return View::make('admin.user.edit')->with('user', $user);
 	}
 
 	/**

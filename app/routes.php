@@ -51,6 +51,7 @@ Route::get('logout', 'UserController@logout');
 Route::group(array('prefix' => 'admin'), function()
 {
 	Route::resource('user', 'UserController');
+	Route::resource('affiliate', 'AffiliateController');
 });
 
 
