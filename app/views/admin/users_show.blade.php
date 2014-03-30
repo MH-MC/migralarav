@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<h1 class="page-header">{{ $user->lastname." ".$user->firstname }}</h1>
+	<h1 class="page-header">{{ $user->firstname." ".$user->lastname }}</h1>
 	@if (Session::has('message'))
     	<p class="form-signin-heading">{{ Session::get('message') }}</p>
     @endif
@@ -34,7 +34,7 @@
 		<div class="form-group">
 			<div class="col-sm-2">
 				<a href="{{url('admin/user')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
-				<a href="{{url('admin/user/'.$user->id.'/edit')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Editar</a>
+				<a href="{{url('admin/user/'.Utils::encode_id($user->id, array($user->username, $user->email)).'/edit')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Editar</a>
 			</div>
 		</div>
 	</form>

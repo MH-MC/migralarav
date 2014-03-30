@@ -21,8 +21,8 @@
 	<table class="table table-hover table-condensed">
 		<thead >
 			<th>Username</th>
-			<th>Apellidos</th>
 			<th>Nombres</th>
+			<th>Apellidos</th>
 			<th>E-mail</th>
 			<th>Teléfono</th>
 			<th>Celular</th>
@@ -34,8 +34,8 @@
 				<tr>
 					<?php $idEncoded = Utils::encode_id($user->id, array($user->username, $user->email)); ?>
 					<td><a href="{{url('admin/user/'.$idEncoded)}}">{{ $user->username }}</a></td>
-					<td>{{ $user->lastname }}</td>
 					<td>{{ $user->firstname }}</td>
+					<td>{{ $user->lastname }}</td>
 					<td>{{ $user->email }}</td>
 					<td>{{ $user->phone }}</td>
 					<td>{{ $user->cellphone }}</td>

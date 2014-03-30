@@ -40,6 +40,11 @@ body {
   background-color: #428bca;
 }
 
+.nav-list > .active > a {
+  color: #fff;
+  background-color: #428bca;
+}
+
 .main {
   padding: 20px;
 }
@@ -67,4 +72,8 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+.nav-list li a {
+  padding-left: 40px;
 }
