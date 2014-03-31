@@ -14,6 +14,9 @@
           </li>
         </ul>
     </li>
+    <li class="{{ Request::is('admin/role') || Request::is('admin/role/*')? 'active' : '' }}">
+      <a href="{{ url('admin/role') }}"><span class="glyphicon glyphicon-lock"></span> Roles</a>
+    </li>
     <li class="{{ Request::is('admin/author') || Request::is('admin/author/*')? 'active' : '' }}">
       <a href="{{ url('admin/author') }}"><span class="glyphicon glyphicon-pencil"></span> Autores</a>
     </li>
