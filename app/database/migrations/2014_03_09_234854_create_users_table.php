@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration {
 			$table->string('email', 100)->unique();
 			$table->string('phone', 45)->nullable();
 			$table->string('cellphone', 45)->nullable();
-			$table->enum('sex', array('M', 'F'));
+			$table->enum('sex', array('M', 'F', 'NA'));
 			$table->tinyInteger('language')->unsigned();
 			$table->tinyInteger('status')->unsigned();
 			$table->integer('location_id')->nullable();

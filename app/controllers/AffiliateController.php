@@ -32,7 +32,7 @@ class AffiliateController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		
 	}
 
 	/**

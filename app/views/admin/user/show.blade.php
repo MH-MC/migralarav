@@ -4,7 +4,10 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<h1 class="page-header">{{ $user->firstname." ".$user->lastname }}</h1>
 	@if (Session::has('message'))
-    	<p class="form-signin-heading">{{ Session::get('message') }}</p>
+    	<div class="alert alert-success fade in">
+	    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	      	{{ Session::get('message') }}
+	    </div>
     @endif
 	<form class="form-horizontal" role="form">
 		<div class="form-group">
