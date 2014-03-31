@@ -67,4 +67,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Audiobook', 'wishlist');
 	}
+
+	 // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+             $user->affiliate()->delete();
+             // do the rest of the cleanup...
+        });
+    }
 }

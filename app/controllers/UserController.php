@@ -62,7 +62,7 @@ class UserController extends BaseController {
 			$user->sex       = $input['sex'];
 			$user->save();
 
-			return Redirect::to('admin/user/'.$user->id)->with('message', 'Usuario creado exitosamente.');
+			return Redirect::to('admin/user/'.Utils::encode_id($user->id, array($user->username, $user->email)))->with('message', 'Usuario creado exitosamente.');
 
 			// TODO: Se manda el correo al usuario creado con su clave temporal.
 		}
