@@ -40,7 +40,7 @@
 					<td>
 						{{ Form::open(array('url' => 'admin/affiliate/'.$idEncoded, 'method' => 'delete')) }}
 							<a href="{{url('admin/affiliate/'.$idEncoded.'/edit')}}"><span class="glyphicon glyphicon-cog" title="Editar Usuario"></span></a>&nbsp;
-							<a href="javascript:void()" onclick='if(confirm("¿Está seguro que desea eliminar este usuario?")) this.parentNode.submit(); return false;'><span class="glyphicon glyphicon-trash" title="Eliminar Usuario"></span></a>&nbsp;
+							<a href="javascript:void()" onclick='if(confirm("¿Está seguro que desea eliminar este afiliado?")) this.parentNode.submit(); return false;'><span class="glyphicon glyphicon-trash" title="Eliminar Afiliado"></span></a>&nbsp;
 							<a href="#"><span class="glyphicon glyphicon-arrow-down" title="Dar de Baja"></span></a>&nbsp;
 						{{ Form::close() }}
 					</td>
