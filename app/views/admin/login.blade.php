@@ -30,7 +30,7 @@
         <h1>MundoHablado | Administración</h1>
       </div>
 
-      {{ Form::open(array('url' => 'login', 'class' => 'form-signin', 'role' => 'form')) }}
+      {{ Form::open(array('url' => 'login/admin', 'class' => 'form-signin', 'role' => 'form')) }}
         <!--h3 class="form-signin-heading">Por favor ingrese sus credenciales</h3-->
         @if (Session::has('message'))
           <p class="form-signin-heading">{{ Session::get('message') }}</p>
