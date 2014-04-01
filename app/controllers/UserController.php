@@ -9,19 +9,25 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		/*if (Request::is('admin/*'))
+		if (Request::is('admin/*'))
 		{
-			echo "estoy en admin";
+			$role  = Role::whereName('miembro')->first();
+			$users = User::whereRoleId($role->id)->paginate(15);
+			return View::make('admin.user.index')->with('users', $users);
 		}
 		else if(Request::is('newmh/*'))
 		{
-			echo "estoy en public";
-		}else echo "404";*/
+			if(!Auth::check()) 
+			{
+				return View::make('mundohablado.login')->with('type', 'user');
+			}
+			else
+			{
+				return View::make('mundohablado.user.index');
+			}
+		}
 
-		$role  = Role::whereName('miembro')->first();
-		$users = User::whereRoleId($role->id)->paginate(15);
-
-		return View::make('admin.user.index')->with('users', $users);
+		
 	}
 
 	/**
@@ -165,24 +171,54 @@ class UserController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function login()
+	public function login($type)
 	{
 		$input = Input::all();
 
 		$validator = Validator::make($input, Rules::$loginRules);
+
+		$redirectError = '';
+		$redirectGood  = '';
+
+		$user = User::whereUsername($input['username'])->with('role')->first();
+
+		if (Request::is('login/admin'))
+		{
+			$redirectError = 'admin';
+			$redirectGood  = 'admin/home';
+			
+			if(!$user) return Redirect::to($redirectError)->with('message', 'Fallo en inicio de sesion');
+			if($user->role->name != 'superadmin' || $user->role->role_id = 0) return Redirect::to($redirectError)->with('message', 'Usuario no autorizado.');
+		}
+		else if (Request::is('login/user'))
+		{
+			$redirectError = 'newmh/user';
+			$redirectGood = 'newmh/user';
+
+			if(!$user) return Redirect::to($redirectError)->with('message', 'Fallo en inicio de sesion');
+			if($user->role->name != 'miembro') return Redirect::to($redirectError)->with('message', 'Usuario no autorizado.');
+		}
+		else if (Request::is('login/affiliate'))
+		{
+			$redirectError = 'newmh/affiliate';
+			$redirectGood = 'newmh/affiliate';
+
+			if(!$user) return Redirect::to($redirectError)->with('message', 'Fallo en inicio de sesion');
+			if($user->role->name != 'afiliado') return Redirect::to($redirectError)->with('message', 'Usuario no autorizado.');
+		}
 		
-		if($validator->fails()) return Redirect::to('admin')->with('message', 'Fallo en inicio de sesion');
+		if($validator->fails()) return Redirect::to($redirectError)->with('message', 'Fallo en inicio de sesion');
 		else
 		{
 			$userdata = array('username' => $input['username'], 'password' => $input['password']);
 			if (Auth::attempt($userdata))
 			{
-				//Auth::login(Auth::user());
-				return Redirect::to('admin/home');
+				Auth::login(Auth::user());
+				return Redirect::to($redirectGood);
 			}
 			else
 			{
-				return Redirect::to('admin')->with('message', 'Fallo en inicio de sesion');
+				return Redirect::to($redirectError)->with('message', 'Fallo en inicio de sesion');
 			}
 		}
 

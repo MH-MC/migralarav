@@ -25,14 +25,7 @@ Route::get('admin/home', function()
 
 Route::get('test', function()
 { 
-	$roles  = Role::where('role_id', '>', 0)->select('id')->get();
-	$ids = array();
-
-	foreach ($roles as $role) 
-		array_push($ids, $role->id);
-
-	$users = User::whereIn('role_id', $ids)->get();
-	return View::make('admin.admin.index')->with('users', $users);
+	echo Hash::make('123456');
 });
 
 Route::get('admin', function()
@@ -41,7 +34,7 @@ Route::get('admin', function()
 	return View::make('admin.login');
 });
 
-Route::post('login', 'UserController@login');
+Route::post('login/{type}', 'UserController@login');
 Route::get('logout', 'UserController@logout');
 
 
@@ -67,9 +60,15 @@ Route::group(array('prefix' => 'admin'), function()
  */
 Route::group(array('prefix' => 'newmh'), function()
 {
+	Route::get('/', function(){
+		return View::make('mundohablado.index');
+	});
+
+
+
 	// users in public app only are nor allowed to destroy themselves and see the other users
-	Route::resource('user', 'UserController', array('except' => array('index', 'destroy')));
-	Route::resource('affiliate', 'AffiliateController', array('except' => array('index', 'destroy')));
+	Route::resource('user', 'UserController', array('except' => array('destroy')));
+	Route::resource('affiliate', 'AffiliateController', array('except' => array('destroy')));
 
 });
 

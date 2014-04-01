@@ -9,10 +9,21 @@ class AffiliateController extends BaseController {
 	 */
 	public function index()
 	{
-		$role       = Role::whereName('afiliado')->first();
-		$affiliates = User::whereRoleId($role->id)->with('affiliate')->paginate(15);
+		if (Request::is('admin/*'))
+		{
+			$role       = Role::whereName('afiliado')->first();
+			$affiliates = User::whereRoleId($role->id)->with('affiliate')->paginate(15);
 		
-		return View::make('admin.affiliate.index')->with('users', $affiliates);
+			return View::make('admin.affiliate.index')->with('users', $affiliates);
+		}
+		else if(Request::is('newmh/*'))
+		{
+			if(!Auth::check()) return View::make('mundohablado.login')->with('type', 'affiliate');
+			else
+			{
+				return View::make('mundohablado.affiliate.index');
+			}
+		}
 	}
 
 	/**
