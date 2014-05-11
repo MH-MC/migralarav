@@ -162,7 +162,7 @@ class UserController extends BaseController {
 		$user = User::find($id);
 		$user->delete();
 
-		return Redirect::to('admin/user');
+		return Redirect::to('admin/user')->with('message', 'El usuario ha sido eliminado exitosamente.')->with('type', 'success');
 	}
 
 
@@ -232,6 +232,31 @@ class UserController extends BaseController {
 
 	public function down($id)
 	{
-		echo $id;
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 0;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/user')->with('message', 'Usuario deshabilitado exitosamente.')->with('type', 'success');
+	}
+
+	public function up($id)
+	{
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 1;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/user')->with('message', 'Usuario habilitado exitosamente.')->with('type', 'success');
 	}
 }

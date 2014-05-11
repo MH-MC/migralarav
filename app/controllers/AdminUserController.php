@@ -151,7 +151,37 @@ class AdminUserController extends BaseController {
 		$user = User::find($id);
 		$user->delete();
 
-		return Redirect::to('admin/adminuser');
+		return Redirect::to('admin/adminuser')->with('message', 'Administrador eliminado exitosamente.')->with('type', 'success');;
+	}
+
+	public function down($id)
+	{
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 0;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/adminuser')->with('message', 'Administrador deshabilitado exitosamente.')->with('type', 'success');;
+	}
+
+	public function up($id)
+	{
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 1;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/adminuser')->with('message', 'Administrador habilitado exitosamente.')->with('type', 'success');;
 	}
 
 }

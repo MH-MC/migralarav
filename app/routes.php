@@ -52,7 +52,14 @@ Route::group(array('prefix' => 'admin'), function()
 	Route::resource('user', 'UserController');
 	Route::resource('affiliate', 'AffiliateController');
 	Route::resource('adminuser', 'AdminUserController');
-	Route::post ('user/down/{id}', 'UserController@down');
+
+	// Up/Down
+	Route::post ('user/down/{id}',      'UserController@down');
+	Route::post ('user/up/{id}',        'UserController@up');
+	Route::post ('affiliate/down/{id}', 'AffiliateController@down');
+	Route::post ('affiliate/up/{id}',   'AffiliateController@up');
+	Route::post ('adminuser/down/{id}', 'AdminUserController@down');
+	Route::post ('adminuser/up/{id}',   'AdminUserController@up');
 });
 
 

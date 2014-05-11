@@ -178,7 +178,37 @@ class AffiliateController extends BaseController {
 		$user = User::find($id);
 		$user->delete();
 
-		return Redirect::to('admin/affiliate');
+		return Redirect::to('admin/affiliate')->with('message', 'Afiliado eliminado exitosamente.')->with('type', 'success');
+	}
+
+	public function down($id)
+	{
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 0;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/affiliate')->with('message', 'Afiliado deshabilitado exitosamente.')->with('type', 'success');
+	}
+
+	public function up($id)
+	{
+		$id   = Utils::decode_id($id);
+		$user = User::find($id);
+
+		if(is_object($user))
+		{
+			$user->active = 1;
+			$user->touch();
+			$user->save();
+		}
+
+		return Redirect::to('admin/affiliate')->with('message', 'Afiliado habilitado exitosamente.')->with('type', 'success');
 	}
 
 }
