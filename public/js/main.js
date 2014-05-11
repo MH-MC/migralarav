@@ -1,6 +1,7 @@
 $(document).ready(function (){
 	confirmDelete();
 	confirmDown();
+	confirmUp();
 });
 
 function confirmDelete(){
@@ -29,7 +30,7 @@ function confirmDown(){
 	});
 }
 
-function confirmDown(){
+function confirmUp(){
 	$(document).on('click','.confirm-up',function(){
 		var id = $(this).parent().parent().data('id');
 		var username = $(this).parent().parent().data('username');

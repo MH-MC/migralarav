@@ -7,7 +7,7 @@
 					Eliminar Usuario
 				</div>
 				<div class="modal-body">
-					<p>¿Está seguro que desea eliminar este usuario?</p>
+					<p>¿Está seguro que desea eliminar este afiliado?</p>
 					<label for="" class="label-inline">Nombre de Usuario: </label>
 					<span class="form-control-static usernameToDelete"></span><br>
 					<label for="" class="label-inline">Nombres y Apellidos: </label>
@@ -33,7 +33,7 @@
 					Dar de Baja
 				</div>
 				<div class="modal-body">
-					<p>¿Está seguro que desea deshabilitar este usuario?</p>
+					<p>¿Está seguro que desea deshabilitar este afiliado?</p>
 					<label for="" class="label-inline">Nombre de Usuario: </label>
 					<span class="form-control-static usernameToDown"></span><br>
 					<label for="" class="label-inline">Nombres y Apellidos: </label>
@@ -59,7 +59,7 @@
 					Dar de Alta
 				</div>
 				<div class="modal-body">
-					<p>¿Está seguro que desea habilitar este usuario?</p>
+					<p>¿Está seguro que desea habilitar este afiliado?</p>
 					<label for="" class="label-inline">Nombre de Usuario: </label>
 					<span class="form-control-static usernameToUp"></span><br>
 					<label for="" class="label-inline">Nombres y Apellidos: </label>
