@@ -229,4 +229,9 @@ class UserController extends BaseController {
 		Auth::logout();
 		return Redirect::to('admin');
 	}
+
+	public function down($id)
+	{
+		echo $id;
+	}
 }

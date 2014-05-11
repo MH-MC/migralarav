@@ -8,13 +8,20 @@
 		<a href="{{url('admin/user/create')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Usuario</a>
 	</div>
 	
-	<div class="col-lg-2">
+	<div class="col-lg-3">
 		<div class="input-group">
-	      <input type="text" placeholder="Buscar" class="form-control">
-	      <span class="input-group-btn">
-	        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-	      </span>
-	    </div><!-- /input-group -->
+			<span class="input-group-addon glyphicon glyphicon-search"></span>
+			<input type="text" class="form-control" placeholder="Buscar">
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
+				<ul class="dropdown-menu pull-right">
+					<li><a href="#">Todo</a></li>
+					<li><a href="#">Por Nombre</a></li>
+					<li><a href="#">Por Username</a></li>
+					<li><a href="#">Por email</a></li>
+				</ul>
+			</div>
+	    </div>
 	</div>
 	
 	<br/><br/>
@@ -31,8 +38,8 @@
 		<tbody>
 			
 			@foreach($users as $user)
-				<tr>
-					<?php $idEncoded = Utils::encode_id($user->id, array($user->username, $user->email)); ?>
+				<?php $idEncoded = Utils::encode_id($user->id, array($user->username, $user->email)); ?>
+				<tr data-id="{{ $idEncoded }}" data-username="{{ $user->username }}" data-name="{{ $user->firstname.' '.$user->lastname }}">
 					<td><a href="{{url('admin/user/'.$idEncoded)}}">{{ $user->username }}</a></td>
 					<td>{{ $user->firstname }}</td>
 					<td>{{ $user->lastname }}</td>
@@ -40,11 +47,13 @@
 					<td>{{ $user->phone }}</td>
 					<td>{{ $user->cellphone }}</td>
 					<td>
-						{{ Form::open(array('url' => 'admin/user/'.$idEncoded, 'method' => 'delete')) }}
-							<a href="{{url('admin/user/'.$idEncoded.'/edit')}}"><span class="glyphicon glyphicon-cog" title="Editar Usuario"></span></a>&nbsp;
-							<a href="javascript:void()" onclick='if(confirm("¿Está seguro que desea eliminar este usuario?")) this.parentNode.submit(); return false;'><span class="glyphicon glyphicon-trash" title="Eliminar Usuario"></span></a>&nbsp;
-							<a href="#"><span class="glyphicon glyphicon-arrow-down" title="Dar de Baja"></span></a>&nbsp;
-						{{ Form::close() }}
+						<a href="{{url('admin/user/'.$idEncoded.'/edit')}}"><span class="glyphicon glyphicon-cog" title="Editar Usuario"></span></a>&nbsp;
+						<a href="javascript:void()" class="text-danger confirm-delete" data-toggle="modal" data-target="#delete-user"><span class="glyphicon glyphicon-trash" title="Eliminar Usuario"></span></a>&nbsp;
+						@if($user->active == 1)
+						<a href="javascript:void()" class="text-success confirm-up" data-toggle="modal" data-target="#up-user"><span class="glyphicon glyphicon-arrow-up" title="Dar de Alta"></span></a>&nbsp;
+						@else
+						<a href="javascript:void()" class="text-danger confirm-down" data-toggle="modal" data-target="#down-user"><span class="glyphicon glyphicon-arrow-down" title="Dar de Baja"></span></a>&nbsp;
+						@endif
 					</td>
 				</tr>
 			@endforeach
@@ -53,5 +62,7 @@
   	
 	{{ $users->links() }}
 </div>
+
+@include('admin.user.modals')
 
 @stop

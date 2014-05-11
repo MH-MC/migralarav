@@ -52,6 +52,7 @@ Route::group(array('prefix' => 'admin'), function()
 	Route::resource('user', 'UserController');
 	Route::resource('affiliate', 'AffiliateController');
 	Route::resource('adminuser', 'AdminUserController');
+	Route::post ('user/down/{id}', 'UserController@down');
 });
 
 

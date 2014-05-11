@@ -23,7 +23,7 @@
 			<div class="{{ $errors->has('firstname')? 'has-error' : (Session::has('errors')? 'has-success' : '') }} ">
 				<label for="firstname" class="col-sm-2 control-label">Nombres (*)</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nombres" value="{{ Input::old('firstname')? Input::old('firstname') : $user->firstname }}" maxlength="50" required>
+					<input type="text" class="field form-control" id="firstname" name="firstname" placeholder="Nombres" value="{{ Input::old('firstname')? Input::old('firstname') : $user->firstname }}" maxlength="50" required>
 					<span class="control-label">{{ $errors->first('firstname'); }}</span>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 			<div class="{{ $errors->has('lastname')? 'has-error' : (Session::has('errors')? 'has-success' : '') }} ">
 				<label for="lastname" class="col-sm-2 control-label">Apellidos (*)</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Apellidos" value="{{ Input::old('lastname')? Input::old('lastname') : $user->lastname }}" maxlength="50" required>
+					<input type="text" class="field form-control" id="lastname" name="lastname" placeholder="Apellidos" value="{{ Input::old('lastname')? Input::old('lastname') : $user->lastname }}" maxlength="50" required>
 					<span class="control-label">{{ $errors->first('lastname'); }}</span>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 			<div class="{{ $errors->has('email')? 'has-error' : (Session::has('errors')? 'has-success' : '') }} ">
 				<label for="email" class="col-sm-2 control-label">E-mail (*)</label>
 				<div class="col-sm-3">
-					<input type="email" class="form-control" id="email" name="email" placeholder="E-mail" value="{{ Input::old('email')? Input::old('email') : $user->email }}" maxlength="50" required>
+					<input type="email" class="field form-control" id="email" name="email" placeholder="E-mail" value="{{ Input::old('email')? Input::old('email') : $user->email }}" maxlength="50" required>
 					<span class="control-label">{{ $errors->first('email'); }}</span>
 				</div>
 			</div>
@@ -50,10 +50,10 @@
 			<label for="cellphone" class="col-sm-2 control-label">Sexo</label>
 			<div class="col-sm-3">
 				<label class="radio-inline">
-					<input type="radio" class="form-control" id="sexF" name="sex" value="F" {{ $user->sex == 'F'? "checked": ""}}> F
+					<input type="radio" class="field form-control" id="sexF" name="sex" value="F" {{ $user->sex == 'F'? "checked": ""}}> F
 				</label>
 				<label class="radio-inline">
-					<input type="radio" class="form-control" id="sexF" name="sex" value="M" {{ $user->sex == 'M'? "checked": ""}}> M
+					<input type="radio" class="field form-control" id="sexF" name="sex" value="M" {{ $user->sex == 'M'? "checked": ""}}> M
 				</label>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 			<div class="{{ $errors->has('role')? 'has-error' : (Session::has('errors')? 'has-success' : '') }} ">
 				<label for="role" class="col-sm-2 control-label">Rol (*)</label>
 				<div class="col-sm-3">
-					<select name="role" class="form-control">
+					<select name="role" class="field form-control">
 						<option value="">-- Seleccione --</option>
 						@foreach ($roles as $role)
 							<option value="{{ Utils::encode_id($role->id, array($role->id, $role->name)) }}" {{ $user->role_id == $role->id? "selected" : "" }} > {{ $role->name }}</option>
