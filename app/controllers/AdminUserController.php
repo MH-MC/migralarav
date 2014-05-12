@@ -3,6 +3,7 @@
 class AdminUserController extends BaseController {
 
 	// TODO: the same admin user cannot modify her/him self
+	// TODO: Cannot create/edit admin users with major privilegies
 	// 
 	/**
 	 * Display a listing of the resource.
@@ -39,6 +40,7 @@ class AdminUserController extends BaseController {
 	 */
 	public function store()
 	{
+		// TODO: Role_id exists
 		$input              = Input::all();
 		$passwd             = substr(md5(rand()),0,8);
 		$input['password']  = $passwd;
@@ -151,7 +153,7 @@ class AdminUserController extends BaseController {
 		$user = User::find($id);
 		$user->delete();
 
-		return Redirect::to('admin/adminuser')->with('message', 'Administrador eliminado exitosamente.')->with('type', 'success');;
+		return Redirect::to('admin/adminuser')->with('message', 'Administrador eliminado exitosamente.')->with('type', 'success');
 	}
 
 	public function down($id)

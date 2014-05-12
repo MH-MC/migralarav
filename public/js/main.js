@@ -2,6 +2,7 @@ $(document).ready(function (){
 	confirmDelete();
 	confirmDown();
 	confirmUp();
+	confirmRoleDelete();
 });
 
 function confirmDelete(){
@@ -40,5 +41,16 @@ function confirmUp(){
 		$('#form-up .usernameToUp').text(username);
 		$('#form-up .nameToUp').text(name);
 		$('#form-up input[name="id_toUp"]').val(id);
+	});
+}
+
+function confirmRoleDelete(){
+	$(document).on('click','.confirm-role-delete',function(){
+		var id = $(this).parent().parent().data('id');
+		var name = $(this).parent().parent().data('name');
+		var url_base = $('#form-delete input[name="url_base"]').val()
+		$('#form-delete').attr('action', url_base+"/"+id);
+		$('#form-delete .nameToDelete').text(name);
+		$('#form-delete input[name="id_toDelete"]').val(id);
 	});
 }
