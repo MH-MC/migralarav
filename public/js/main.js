@@ -3,6 +3,7 @@ $(document).ready(function (){
 	confirmDown();
 	confirmUp();
 	confirmRoleDelete();
+	search();
 });
 
 function confirmDelete(){
@@ -52,5 +53,15 @@ function confirmRoleDelete(){
 		$('#form-delete').attr('action', url_base+"/"+id);
 		$('#form-delete .nameToDelete').text(name);
 		$('#form-delete input[name="id_toDelete"]').val(id);
+	});
+}
+
+function search()
+{
+	$(document).on('click','.filter',function()
+	{
+		var url = $(this).data('id');
+		$('#search-form').attr('action', url);
+		if($.trim($('#search-form input[name="query_string"]').val()) != "") $('#search-form').submit();
 	});
 }

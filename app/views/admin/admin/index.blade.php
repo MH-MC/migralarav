@@ -20,8 +20,8 @@
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
 				<ul class="dropdown-menu pull-right">
-					<li><a href="#">Todo</a></li>
-					<li><a href="#">Por Nombre</a></li>
+					<li><a href="">Todo</a></li>
+					<li><a href="">Por Nombre</a></li>
 					<li><a href="#">Por Username</a></li>
 					<li><a href="#">Por Email</a></li>
 					<li><a href="#">Por Rol</a></li>

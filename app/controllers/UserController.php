@@ -30,6 +30,18 @@ class UserController extends BaseController {
 		
 	}
 
+	public function search()
+	{
+		$filters = array('username', 'lastname');
+		$filter = array('column' => 'role_id', 'value' => 3);
+		$special_filters = array();
+		array_push($special_filters, $filter);
+
+		$users = SearchEngine::Search("users", "ario", $filters, $special_filters);
+
+		return View::make('admin.user.index')->with('users', $users);
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

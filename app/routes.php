@@ -23,10 +23,7 @@ Route::get('admin/home', function()
 	return View::make('admin.home');
 });
 
-Route::get('test', function()
-{ 
-	echo Hash::make('123456');
-});
+Route::get('search/{table}/{filters}', 'SearchController@search');
 
 Route::get('admin', function()
 {

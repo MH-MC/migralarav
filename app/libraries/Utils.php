@@ -19,15 +19,21 @@ class Utils
 	public static function encode_id($id, $rounders)
 	{
 		$toEncode = md5($rounders[0]).$id.md5($rounders[1]);
-		return self::encode_safe($toEncode);
+		return Crypt::encrypt(self::encode_safe($toEncode));
 	}
 
 	public static function decode_id($string)
 	{
-		$toDecode = self::decode_safe($string);
-		//$id = str_replace(array(md5($rounders[0]), md5($rounders[1])), array('',''), $toDecode);
-		$length = strlen($toDecode);
-		$id = (int) (substr(substr($toDecode, 32), 0, -32));
+		$toDecode = self::decode_safe(Crypt::decrypt($string));
+		$id       = (int) (substr(substr($toDecode, 32), 0, -32));
 		return $id;
 	}
+
+	// Search Filters
+	public static $USER             = 'users';
+	public static $MEMBER_ALL       = 'lastname|firstname|username|email';
+	public static $MEMBER_NAME      = 'lastname|firstname';
+	public static $MEMBER_USERNAME  = 'username';
+	public static $MEMBER_EMAIL     = 'email';
+
 }

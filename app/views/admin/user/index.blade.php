@@ -14,19 +14,21 @@
 	</div>
 	
 	<div class="col-lg-3">
+		{{ Form::open(array('url' => 'search/'.Crypt::encrypt(Utils::$USER).'/'.Crypt::encrypt(Utils::$MEMBER_ALL), 'role' => 'form', 'method' => 'GET', 'id' => 'search-form')) }}
 		<div class="input-group">
 			<span class="input-group-addon glyphicon glyphicon-search"></span>
-			<input type="text" class="form-control" placeholder="Buscar">
+			<input type="text" class="form-control" placeholder="Buscar" name="query_string">
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
 				<ul class="dropdown-menu pull-right">
-					<li><a href="#">Todo</a></li>
-					<li><a href="#">Por Nombre</a></li>
-					<li><a href="#">Por Username</a></li>
-					<li><a href="#">Por email</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$USER).'/'.Crypt::encrypt(Utils::$MEMBER_ALL)) }}">Todo</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$USER).'/'.Crypt::encrypt(Utils::$MEMBER_NAME)) }}">Por Nombre</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$USER).'/'.Crypt::encrypt(Utils::$MEMBER_USERNAME)) }}">Por Username</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$USER).'/'.Crypt::encrypt(Utils::$MEMBER_EMAIL)) }}">Por email</a></li>
 				</ul>
 			</div>
 	    </div>
+		{{ Form::close() }}
 	</div>
 	
 	<br/><br/>
