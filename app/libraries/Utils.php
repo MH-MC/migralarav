@@ -31,7 +31,7 @@ class Utils
 
 	// Search Filters
 	public static $USER             = 'users';
-	public static $MEMBER_ALL       = 'lastname|firstname|username|email';
+	public static $MEMBER_ALL       = 'lastname|firstname|username|email##roles__id__3##roles__id__users__role_id__inner|authors__id__users__id__inner';
 	public static $MEMBER_NAME      = 'lastname|firstname';
 	public static $MEMBER_USERNAME  = 'username';
 	public static $MEMBER_EMAIL     = 'email';

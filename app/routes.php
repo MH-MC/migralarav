@@ -27,9 +27,17 @@ Route::get('search/{table}/{filters}', 'SearchController@search');
 
 Route::get('admin', function()
 {
-	//if()
 	return View::make('admin.login');
 });
+
+Route::get('test', function()
+{
+	$users = DB::table('users');
+	$res = $users->join('roles', 'roles.id', '=', 'users.role_id')->where('roles.id', '3')->get();
+
+	print_r($users);
+});
+
 
 Route::post('login/{type}', 'UserController@login');
 Route::get('logout', 'UserController@logout');

@@ -13,6 +13,7 @@ class UserController extends BaseController {
 		{
 			$role  = Role::whereName('miembro')->first();
 			$users = User::whereRoleId($role->id)->paginate(15);
+
 			return View::make('admin.user.index')->with('users', $users);
 		}
 		else if(Request::is('newmh/*'))
