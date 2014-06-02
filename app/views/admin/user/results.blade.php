@@ -2,37 +2,18 @@
 @section('content')
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<h1 class="page-header">Usuarios Miembros</h1>
+	<h1 class="page-header">Resultados de Búsqueda de Usuarios Miembros</h1>
 	@if (Session::has('message'))
 		<div class="alert alert-{{Session::get('type')}} fade in">
 	    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 	      	{{ Session::get('message') }}
 	    </div>
     @endif
-	<div class="col-lg-2">
-		<a href="{{url('admin/user/create')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Crear Usuario</a>
+    <div class="col-lg-2">
+		<a href="{{url('admin/user')}}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
 	</div>
-	
-	<div class="col-lg-3">
-		{{ Form::open(array('url' => 'search/'.Crypt::encrypt(Utils::$MEMBER).'/'.Crypt::encrypt(Utils::$MEMBER_ALL.Utils::$MEMBER_COMMON), 'role' => 'form', 'method' => 'GET', 'id' => 'search-form')) }}
-		<div class="input-group">
-			<span class="input-group-addon glyphicon glyphicon-search"></span>
-			<input type="text" class="form-control" placeholder="Buscar" name="query_string">
-			{{ Form::hidden('_view', Crypt::encrypt('admin.user.results')) }}
-			<div class="input-group-btn">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
-				<ul class="dropdown-menu pull-right">
-					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$MEMBER).'/'.Crypt::encrypt(Utils::$MEMBER_ALL.Utils::$MEMBER_COMMON)) }}">Todo</a></li>
-					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$MEMBER).'/'.Crypt::encrypt(Utils::$MEMBER_NAME.Utils::$MEMBER_COMMON)) }}">Por Nombre</a></li>
-					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$MEMBER).'/'.Crypt::encrypt(Utils::$MEMBER_USERNAME.Utils::$MEMBER_COMMON)) }}">Por Username</a></li>
-					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$MEMBER).'/'.Crypt::encrypt(Utils::$MEMBER_EMAIL.Utils::$MEMBER_COMMON)) }}">Por email</a></li>
-				</ul>
-			</div>
-	    </div>
-		{{ Form::close() }}
-	</div>
-	
-	<br/><br/>
+	<br><br>
+	@if(sizeof($records) > 0)
 	<table class="table table-hover table-condensed">
 		<thead >
 			<th>Username</th>
@@ -44,8 +25,7 @@
 			<th>Acciones</th>
 		</thead>
 		<tbody>
-			
-			@foreach($users as $user)
+			@foreach($records as $user)
 				<?php $idEncoded = Utils::encode_id($user->id, array($user->username, $user->email)); ?>
 				<tr data-id="{{ $idEncoded }}" data-username="{{ $user->username }}" data-name="{{ $user->firstname.' '.$user->lastname }}">
 					<td><a href="{{url('admin/user/'.$idEncoded)}}">{{ $user->username }}</a></td>
@@ -67,8 +47,14 @@
 			@endforeach
 		</tbody>
 	</table>
-  	
-	{{ $users->links() }}
+	{{ $records->appends(array('query_string' => $query_string, '_view' =>Crypt::encrypt('admin.user.results')))->links() }}
+	@else
+	<div class="row">
+		<div class="col-md-10 col-md-offset-2">
+			<span>No se encontró ningún miembro que coincida con los parámetros de búsqueda <b>{{$query_string}}</b>.</span>
+		</div>
+	</div>
+	@endif
 </div>
 
 @include('admin.user.modals')

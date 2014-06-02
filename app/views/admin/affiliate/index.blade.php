@@ -14,19 +14,22 @@
 	</div>
 	
 	<div class="col-lg-3">
+		{{ Form::open(array('url' => 'search/'.Crypt::encrypt(Utils::$AFFILIATE).'/'.Crypt::encrypt(Utils::$AFFILIATE_ALL.Utils::$AFFILIATE_COMMON), 'role' => 'form', 'method' => 'GET', 'id' => 'search-form')) }}
 		<div class="input-group">
 			<span class="input-group-addon glyphicon glyphicon-search"></span>
-			<input type="text" class="form-control" placeholder="Buscar">
+			<input type="text" class="form-control" placeholder="Buscar" name="query_string">
+			{{ Form::hidden('_view', Crypt::encrypt('admin.affiliate.results')) }}
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
 				<ul class="dropdown-menu pull-right">
-					<li><a href="#">Todo</a></li>
-					<li><a href="#">Por Nombre</a></li>
-					<li><a href="#">Por Username</a></li>
-					<li><a href="#">Por Email</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$AFFILIATE).'/'.Crypt::encrypt(Utils::$AFFILIATE_ALL.Utils::$AFFILIATE_COMMON)) }}">Todo</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$AFFILIATE).'/'.Crypt::encrypt(Utils::$AFFILIATE_NAME.Utils::$AFFILIATE_COMMON)) }}">Por Nombre</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$AFFILIATE).'/'.Crypt::encrypt(Utils::$AFFILIATE_USERNAME.Utils::$AFFILIATE_COMMON)) }}">Por Username</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$AFFILIATE).'/'.Crypt::encrypt(Utils::$AFFILIATE_EMAIL.Utils::$AFFILIATE_COMMON)) }}">Por email</a></li>
 				</ul>
 			</div>
 	    </div>
+		{{ Form::close() }}
 	</div>
 	
 	<br/><br/>

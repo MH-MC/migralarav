@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<h1 class="page-header">Administradores</h1>
+	<h1 class="page-header">Resultados de Búsqueda de Administradores</h1>
 	@if (Session::has('message'))
 		<div class="alert alert-{{Session::get('type')}} fade in">
 	    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -14,20 +14,23 @@
 	</div>
 	
 	<div class="col-lg-3">
+		{{ Form::open(array('url' => 'search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_ALL.Utils::$ADMIN_COMMON), 'role' => 'form', 'method' => 'GET', 'id' => 'search-form')) }}
 		<div class="input-group">
 			<span class="input-group-addon glyphicon glyphicon-search"></span>
-			<input type="text" class="form-control" placeholder="Buscar">
+			<input type="text" class="form-control" placeholder="Buscar" name="query_string">
+			{{ Form::hidden('_view', Crypt::encrypt('admin.admin.results')) }}
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Filtros <span class="caret"></span></button>
 				<ul class="dropdown-menu pull-right">
-					<li><a href="">Todo</a></li>
-					<li><a href="">Por Nombre</a></li>
-					<li><a href="#">Por Username</a></li>
-					<li><a href="#">Por Email</a></li>
-					<li><a href="#">Por Rol</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_ALL.Utils::$ADMIN_COMMON)) }}">Todo</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_NAME.Utils::$ADMIN_COMMON)) }}">Por Nombre</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_USERNAME.Utils::$ADMIN_COMMON)) }}">Por Username</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_EMAIL.Utils::$ADMIN_COMMON)) }}">Por email</a></li>
+					<li><a class="filter" href="javascript:void(0)" data-url="{{ url('search/'.Crypt::encrypt(Utils::$ADMIN).'/'.Crypt::encrypt(Utils::$ADMIN_ROL.Utils::$ADMIN_COMMON)) }}">Por Rol</a></li>
 				</ul>
 			</div>
 	    </div>
+		{{ Form::close() }}
 	</div>
 	
 	<br/><br/>

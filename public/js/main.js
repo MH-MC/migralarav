@@ -60,8 +60,20 @@ function search()
 {
 	$(document).on('click','.filter',function()
 	{
-		var url = $(this).data('id');
+		var url = $(this).data('url');
 		$('#search-form').attr('action', url);
 		if($.trim($('#search-form input[name="query_string"]').val()) != "") $('#search-form').submit();
+	});
+
+	$(document).on('keypress','#search-form input[name="query_string"]', function(e)
+	{
+		var code = e.keyCode || e.which;
+		if (code == '13') 
+		{
+     		e.preventDefault();
+     		var url = $(this).data('url');
+			$('#search-form').attr('action', url);
+			if($.trim($('#search-form input[name="query_string"]').val()) != "") $('#search-form').submit();
+ 		}
 	});
 }

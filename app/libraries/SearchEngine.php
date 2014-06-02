@@ -8,8 +8,10 @@ class SearchEngine
 	{
 		if(empty($filters) && empty($special_filters)) return null;
 
+            // prepare the statement
 		$statement = DB::table($table);
 
+            // joins
             foreach ($joins as $join) 
             {
                   if($join['relation'] == 'inner')
@@ -18,21 +20,21 @@ class SearchEngine
                         $statement->leftJoin($join['table2'], $join['table2'].'.'.$join['column2'], '=', $join['table1'].'.'.$join['column1']);
             }
 
-            //->join()
+            // wheres and like wheres
             $results = $statement->where(function($query) use($special_filters)
             {
             	foreach ($special_filters as $filter) 
             	{
-            		$query->where($filter['table'].'.'.$filter['column'], '=', $filter['value']);
+            		$query->where($filter['table'].'.'.$filter['column'], $filter['operator'], $filter['value']);
             	}
             })
-            /*->where(function($query) use ($filters, $query_string)
+            ->where(function($query) use ($filters, $query_string)
             {
                 foreach ($filters as $index => $filter) 
             	{
             		$query->orWhere($filter, 'like', '%'.$query_string.'%');
             	}
-            })*/
+            })
             ->paginate(self::$pages);
 
             return $results;
