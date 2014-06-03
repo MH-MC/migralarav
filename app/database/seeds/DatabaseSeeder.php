@@ -2,6 +2,11 @@
 
 class DatabaseSeeder extends Seeder {
 
+	public function deleteTablesContent()
+	{
+        DB::table('roles')->delete();
+	}
+
 	/**
 	 * Run the database seeds.
 	 *
@@ -11,7 +16,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		self::deleteTablesContent();
+		$this->call('RoleTableSeeder');
 	}
 
 }
